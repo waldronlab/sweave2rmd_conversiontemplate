@@ -17,10 +17,14 @@ jobs:
       - uses: actions/checkout@v3
   print-name:
     runs-on: ubuntu-latest
+    env:
+      REPO_NAME: ${{ github.event.repository.name }}
     steps:
       - name: print repo name
         run: |
+          echo $REPO_NAME
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+          echo $REPO_NAME
 
       # - uses: r-lib/actions/setup-r@v2
       #   with:
