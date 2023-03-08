@@ -4,10 +4,6 @@ on:
   push:
     branches: [main, master, devel]
 
-name: Dump github context
-  run:  echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
-  shell: bash
-
 
 name: R-CMD-check
 
