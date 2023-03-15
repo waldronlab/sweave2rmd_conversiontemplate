@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_NAME: ${{ github.event.repository.name }}
-      TEST_NAME: "ffpe"
+      TEST_NAME: "ACME"
     steps:
       - name: create repo
         run: |
@@ -32,7 +32,7 @@ jobs:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, LiNk-NY/Rnw2Rmd
+          extra-packages: any::rcmdcheck, LiNk-NY/Rnw2Rmd, pkgdown
           needs: check
       - name: convert Rnw
         run: |
@@ -40,9 +40,15 @@ jobs:
                  for (fname in list.files(path = ".", pattern = "\\.rnw$", ignore.case = TRUE)){
                   Rnw2Rmd::Rnw2Rmd(from = fname, to = sub("rnw", "Rmd", x = fname, ignore.case = TRUE), validate = FALSE)
                  }'
-      - name: Commit & Push changes
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy package
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+
+      # - name: Commit & Push changes
+      #   uses: actions-js/push@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
     #  - uses: r-lib/actions/check-r-package@v2
