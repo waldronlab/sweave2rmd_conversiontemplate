@@ -44,6 +44,10 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          setwd("vignettes")
+          git add *.Rmd
+          git commit -m "add Rmd files"
+          git push
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
       # - name: Commit & Push changes
