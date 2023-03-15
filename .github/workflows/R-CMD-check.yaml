@@ -40,16 +40,19 @@ jobs:
                  for (fname in list.files(path = ".", pattern = "\\.rnw$", ignore.case = TRUE)){
                   Rnw2Rmd::Rnw2Rmd(from = fname, to = sub("rnw", "Rmd", x = fname, ignore.case = TRUE), validate = FALSE)
                  }'
-      - name: Deploy package
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          setwd("vignettes")
-          git add *.Rmd
-          git commit -m "add Rmd files"
-          git push
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+      # - name: Deploy package
+      #   run: |
+      #     git config --local user.email "actions@github.com"
+      #     git config --local user.name "GitHub Actions"
+      #     Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Bioconductor Helpful Bot
+          author_email: mail@example.com
+          message: 'add Rmd files'
+          add: '*.Rmd'
       # - name: Commit & Push changes
       #   uses: actions-js/push@master
       #   with:
