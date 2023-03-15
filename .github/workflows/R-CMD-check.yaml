@@ -32,7 +32,6 @@ jobs:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, LiNk-NY/Rnw2Rmd
           needs: check
-          extra-packages: LiNk-NY/Rnw2Rmd
       - uses: r-lib/actions/check-r-package@v2
