@@ -40,5 +40,9 @@ jobs:
                  for (fname in list.files(path = ".", pattern = "\\.rnw$", ignore.case = TRUE)){
                   Rnw2Rmd::Rnw2Rmd(from = fname, to = sub("rnw", "Rmd", x = fname, ignore.case = TRUE), validate = FALSE)
                  }'
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
     #  - uses: r-lib/actions/check-r-package@v2
