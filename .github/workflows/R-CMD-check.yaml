@@ -32,7 +32,7 @@ jobs:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, LiNk-NY/Rnw2Rmd, pkgdown
+          extra-packages: any::rcmdcheck, LiNk-NY/Rnw2Rmd, any::pkgdown
           needs: check
       - name: convert Rnw
         run: |
