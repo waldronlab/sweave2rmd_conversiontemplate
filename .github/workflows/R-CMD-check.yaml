@@ -8,24 +8,20 @@ on:
 name: R-CMD-check
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      R_KEEP_PKG_SOURCE: yes
-    steps:
-      - uses: actions/checkout@v3
   fetch-check-repo:
     runs-on: ubuntu-latest
     container: bioconductor/bioconductor_docker:devel
-
     env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
       REPO_NAME: ${{ github.event.repository.name }}
       TEST_NAME: "ACME"
     steps:
+      - uses: actions/checkout@v3
       - name: create repo
         run: |
           echo $REPO_NAME
+          apt-get install  -y rsync
           git clone "https://git.bioconductor.org/packages/$TEST_NAME"
           rsync -a --exclude "^\\." $TEST_NAME/* .
           rm -rf $TEST_NAME
