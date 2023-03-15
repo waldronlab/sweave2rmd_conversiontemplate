@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_NAME: ${{ github.event.repository.name }}
-      TEST_NAME: "doppelgangR"
+      TEST_NAME: "ffpe"
     steps:
       - name: create repo
         run: |
@@ -34,4 +34,11 @@ jobs:
         with:
           extra-packages: any::rcmdcheck, LiNk-NY/Rnw2Rmd
           needs: check
-      - uses: r-lib/actions/check-r-package@v2
+      - name: convert Rnw
+        run: |
+          R -e 'setwd("vignettes")
+                 for (fname in list.files(path = ".", pattern = "\\.rnw$", ignore.case = TRUE)){
+                  Rnw2Rmd::Rnw2Rmd(from = fname, to = sub("rnw", "Rmd", x = fname, ignore.case = TRUE), validate = FALSE)
+                 }'
+
+    #  - uses: r-lib/actions/check-r-package@v2
