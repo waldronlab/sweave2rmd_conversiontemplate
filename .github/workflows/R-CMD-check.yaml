@@ -21,7 +21,6 @@ jobs:
       - name: create repo
         run: |
           echo $REPO_NAME
-          apt-get install  -y rsync
           git clone "https://git.bioconductor.org/packages/$TEST_NAME"
           rm -rf $TEST_NAME/.git*
           mv $TEST_NAME/* .
