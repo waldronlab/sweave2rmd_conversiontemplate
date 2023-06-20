@@ -40,6 +40,8 @@ jobs:
                  }'
       - name: git add
         run: |
+          pwd
+          ls -al
           git config user.name helpful-bot
           git config user.email github-actions@github.com
           git add *
