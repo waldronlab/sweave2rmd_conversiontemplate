@@ -11,7 +11,8 @@ vignettes you would like to convert to Rmd
     - "Allow GitHub Actions to create and approve pull requests"
 4. Click on "Actions", click on the "Initial commit" job, and click "Re-run all jobs". This seems to be
 necessary to have the new permissions take effect.
-5. Click on the "Pull requests" tab to merge the pull request created by the GitHub Action. 
+5. Once the GitHub Action has finished (~10 minutes), click on the "Pull requests" 
+tab to merge the pull request it created. 
 6. Check and edit the Rmd vignettes of the new repository until they work
 7. Optional: activate GitHub Pages on the new repository; it will already have
-pkgdown running in its GitHub Action. (TODO: add details to this step)
+pkgdown running in its GitHub Action. (TODO: add pkgdown Action and instructions)
