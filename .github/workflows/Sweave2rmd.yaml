@@ -12,6 +12,7 @@ jobs:
     container: bioconductor/bioconductor_docker:devel
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
       REPO_NAME: ${{ github.event.repository.name }}
     steps:
