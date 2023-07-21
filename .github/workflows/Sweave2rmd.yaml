@@ -19,7 +19,13 @@ jobs:
     steps:
 
       - uses: actions/checkout@v3
-
+      - name: create repo
+        run: |
+          echo $REPO_NAME
+          git clone "https://git.bioconductor.org/packages/$REPO_NAME"
+          rm -rf $REPO_NAME/.git*
+          mv $REPO_NAME/* .
+          rm -rf $REPO_NAME
       - name: install Rnw2Rmd 
         run: Rscript -e "BiocManager::install('LiNk-NY/Rnw2Rmd')"
 
@@ -49,7 +55,7 @@ jobs:
           git config --global --add safe.directory /__w/$REPO_NAME/$REPO_NAME
           git config user.name helpful-bot
           git config user.email github-actions@github.com
-          git rm  *.Rnw
+          git rm */vignettes/*.Rnw
           git commit -m "Remove .Rnw files"
           git add *.Rmd
           git commit -m "Add .Rmd files"
